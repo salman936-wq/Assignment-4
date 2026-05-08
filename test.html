@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interview System</title>
+
+<style>
+    /* body style - page clean রাখার জন্য */
+    body{
+        font-family: Arial;
+        padding: 20px;
+    }
+
+    /* grid layout - 2 column এ candidate show করার জন্য */
+    .container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* প্রতিটা candidate box style */
+    .candidate{
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    /* button style */
+    button{
+        margin-right: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    /* status text bold করার জন্য */
+    .status{
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    /* interview/reject list box */
+    .box{
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= TITLE ================= -->
+<h2>Interview Management System</h2>
+
+<!-- ================= COUNTER SECTION ================= -->
+<h4>
+Total: <span id="total">0</span> | 
+Interview: <span id="interview-count">0</span> | 
+Reject: <span id="reject-count">0</span>
+</h4>
+
+<hr>
+
+<!-- ================= CANDIDATE MAIN AREA ================= -->
+<div id="all-candidates" class="container"></div>
+
+<hr>
+
+<!-- ================= INTERVIEW LIST ================= -->
+<div class="box">
+    <h3>Interview List</h3>
+    <div id="interview-list"></div>
+</div>
+
+<!-- ================= REJECT LIST ================= -->
+<div class="box">
+    <h3>Reject List</h3>
+    <div id="reject-list"></div>
+</div>
+
+<script>
+
+/* =========================
+   CANDIDATE DATA (8 জন নাম)
+   ========================= */
+const names = [
+    "Rahim","Karim","Sakib","Jabbar",
+    "Hasan","Imran","Tania","Rafi"
+];
+
+/* main container যেখানে সব candidate show হবে */
+const main = document.getElementById("all-candidates");
+
+/* total counter element */
+const totalEl = document.getElementById("total");
+
+/* interview list container */
+const interviewList = document.getElementById("interview-list");
+
+/* reject list container */
+const rejectList = document.getElementById("reject-list");
+
+/* counter elements */
+const interviewCountEl = document.getElementById("interview-count");
+const rejectCountEl = document.getElementById("reject-count");
+
+/* interview & reject count variable */
+let interviewCount = 0;
+let rejectCount = 0;
+
+
+/* =========================
+   TOTAL CANDIDATE SET করা
+   ========================= */
+totalEl.innerText = names.length;
+
+
+/* =========================
+   DYNAMICALLY 8 CANDIDATE CREATE
+   ========================= */
+names.forEach((name, index) => {
+
+    // নতুন div বানানো
+    const div = document.createElement("div");
+
+    // class assign (candidate box style এর জন্য)
+    div.className = "candidate";
+
+    // id রাখা future reference এর জন্য
+    div.dataset.id = index;
+
+    // ভিতরের HTML set করা
+    div.innerHTML = `
+        <h3>${name}</h3>  <!-- candidate name show -->
+
+        <p class="status">Pending</p> <!-- initial status -->
+
+        <!-- interview button -->
+        <button class="interview-btn">Interview</button>
+
+        <!-- reject button -->
+        <button class="reject-btn">Reject</button>
+    `;
+
+    // main container এ add করা
+    main.appendChild(div);
+});
+
+
+/* =========================
+   EVENT DELEGATION (MAIN LOGIC)
+   ========================= */
+
+main.addEventListener("click", function(event){
+
+    // কোন candidate card এ click হয়েছে সেটা ধরছে
+    const candidate = event.target.closest(".candidate");
+
+    // যদি outside click হয় তাহলে ignore
+    if(!candidate) return;
+
+    // name বের করা
+    const name = candidate.querySelector("h3").innerText;
+
+    // status text ধরছে
+    const status = candidate.querySelector(".status");
+
+    /* যদি আগে select হয়ে যায় তাহলে আর কাজ করবে না */
+    if(candidate.dataset.selected === "true") return;
+
+
+    /* =========================
+       INTERVIEW BUTTON CLICK
+       ========================= */
+    if(event.target.classList.contains("interview-btn")){
+
+        // interview count বাড়ানো
+        interviewCount++;
+        interviewCountEl.innerText = interviewCount;
+
+        // status update
+        status.innerText = "Interview Selected";
+
+        // interview list এ add করা
+        const p = document.createElement("p");
+        p.innerText = name;
+        interviewList.appendChild(p);
+
+        // candidate lock করা (একবারই select হবে)
+        lockCandidate(candidate);
+    }
+
+
+    /* =========================
+       REJECT BUTTON CLICK
+       ========================= */
+    if(event.target.classList.contains("reject-btn")){
+
+        // reject count বাড়ানো
+        rejectCount++;
+        rejectCountEl.innerText = rejectCount;
+
+        // status update
+        status.innerText = "Rejected";
+
+        // reject list এ add করা
+        const p = document.createElement("p");
+        p.innerText = name;
+        rejectList.appendChild(p);
+
+        // candidate lock করা
+        lockCandidate(candidate);
+    }
+
+});
+
+
+/* =========================
+   LOCK FUNCTION (1 বার select rule)
+   ========================= */
+
+function lockCandidate(candidate){
+
+    // selected mark করা (future click block করার জন্য)
+    candidate.dataset.selected = "true";
+
+    // সব button disable করে দিচ্ছে
+    candidate.querySelectorAll("button")
+    .forEach(btn => btn.disabled = true);
+}
+
+</script>
+
+</body>
+</html>
