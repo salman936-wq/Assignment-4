@@ -39,20 +39,33 @@
 
 <body class="bg-[#F8FAFC] min-h-screen">
 
+    <!-- 
+    ID list
+    Total count = total-count
+    Interview count = interview-count
+    Rejected count = rejected-count
+    all tabs div id = all-tabs
+    Tabs all content = tabs-all-content
+    Tabs Interview Content if interview 0 = tabs-interview-content
+    Tabs rejected content if rejectd 0 = tabs-rejected-content
+    Id for interview button = interview
+    id for rejected button = rejected
+    -->
+
     <section class="py-8">
         <h1 class="text-[#002C5C] font-bold text-[32px] leading-8 pb-5">Job Application Tracker</h1>
         <div class="grid grid-cols-3 gap-4">
             <div class="p-5 flex flex-col gap-3 bg-white shadow rounded-lg">
                 <h3 class="font-medium text-[14px] text-[#323B49]">Total</h3>
-                <h4 class="text-[#002C5C] text-[24px] font-bold">8</h4>
+                <h4 id="total-count" class="text-[#002C5C] text-[24px] font-bold">0</h4>
             </div>
             <div class="p-5 flex flex-col gap-3 bg-white shadow rounded-lg">
                 <h3 class="font-medium text-[14px] text-[#323B49]">Interview</h3>
-                <h4 class="text-[#10B981] text-[24px] font-bold">8</h4>
+                <h4 id="interview-count" class="text-[#10B981] text-[24px] font-bold">0</h4>
             </div>
             <div class="p-5 flex flex-col gap-3 bg-white shadow rounded-lg">
                 <h3 class="font-medium text-[14px] text-[#323B49]">Rejected</h3>
-                <h4 class="text-[#EF4444] text-[24px] font-bold">8</h4>
+                <h4 id="rejected-count" class="text-[#EF4444] text-[24px] font-bold">0</h4>
             </div>
         </div>
     </section>
@@ -60,70 +73,46 @@
     <hr class="text-[#E6E7E9]">
 
     <section class="py-6 grid-cols-1 grid gap-4">
+
         <h3 class="text-[#002C5C] font-semibold text-[20px] ">Available Jobs</h3>
         <!-- name of each tab group should be unique -->
-        <div class="tabs tabs-box p-0 bg-transparent border-none gap-2 flex">
+
+        <div id="all-tabs" class="tabs tabs-box p-0 bg-transparent border-none gap-2 flex">
+
 
 
             <input type="radio" name="my_tabs_6"
                 class="tab  bg-white w-20 shadow checked:bg-[#3B82F6] checked:text-white" aria-label="All"
                 checked="checked" />
 
-            <div class="tab-content">
-
-                <div id="all-interview" class="p-6 flex flex-col bg-[#FFFFFF] shadow rounded-lg mt-4">
-                    <div class="flex justify-between items-center">
-                        <h1 class="text-[#002C5C] text-[18px] font-semibold leading-6">Mobile First Corp</h1>
-                        <button><i id="delete"
-                                class="fa-solid fa-trash-can text-[#64748B] text-center rounded-full cursor-pointer"></i></button>
-                    </div>
-                    <p class="text-[14px] leading-5 text-[#64748B] pt-1">React Native Developer</p>
-                    <p class="text-[16px] leading-6 text-[#64748B] pt-5">Remote • Full-time • $130,000 - $175,000</p>
-                    <div id="notApplied" class="pt-5">
-                        <p
-                            class="bg-[#EEF4FF] rounded-1 py-2 px-3 w-[130px] uppercase font-medium text-[#002C5C] text-center shadow">
-                            Not Applied</p>
-                    </div>
-                    <p class="text-[#323B49] text-[14px] leading-5 pt-2">Build cross-platform mobile applications using
-                        React Native. Work on products used by millions of users worldwide.</p>
-                    <div class="gap-2 flex pt-5">
-                        <button id="interview" class="btn btn-outline btn-success uppercase">interview</button>
-                        <button id="rejected" class="btn-error btn btn-outline uppercase">Rejected</button>
-                    </div>
-                </div>
-
+            <div id="tabs-all-content" class="tab-content">
             </div>
 
 
 
             <input type="radio" name="my_tabs_6"
                 class="tab shadow w-20 bg-white checked:bg-[#3B82F6] checked:text-white" aria-label="Interview" />
-            <div class="tab-content">
-
-                <div id="noJobs" class="flex flex-col justify-center items-center h-5/2 min-h-[200px] bg-white">
-                    <img src="jobs.png" alt="">
-                    <h2 class="pt-5 text-[24px] leading-8 font-semibold text-[#002C5C]">No jobs available</h2>
-                    <p class="pt-1 leading-6 text-[16px] text-[#64748B]">Check back soon for new job opportunities</p>
-                </div>
-
+            <div id="tabs-interview-content" class="tab-content">
             </div>
 
             <input type="radio" name="my_tabs_6"
                 class="tab w-20 shadow bg-white checked:bg-[#3B82F6] checked:text-white" aria-label="Rejected" />
-            <div class="tab-content">
-                <div class="flex flex-col justify-center items-center h-5/2 min-h-[200px] bg-white">
-                    <img src="jobs.png" alt="">
-                    <h2 class="pt-5 text-[24px] leading-8 font-semibold text-[#002C5C]">No jobs available</h2>
-                    <p class="pt-1 leading-6 text-[16px] text-[#64748B]">Check back soon for new job opportunities</p>
-                </div>
+            <div id="tabs-rejected-content" class="tab-content">
+                
             </div>
+        
         </div>
+    
     </section>
 
 
 
-    <script src="script.js"></script>
+
+
+<script src="script.js"></script>
 
 </body>
+
+
 
 </html>
