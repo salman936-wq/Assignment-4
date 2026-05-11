@@ -1,3 +1,12 @@
+// For programing hero notes
+// Onek code korar por. na parar karone 70% er moto code er jonno ai help korche. ebong eta pore ami bujhar try korchi koyekbar!
+
+
+
+
+
+
+
 // Jodi Button a click kore tahole event start hobe
 
 // Lagbe 
